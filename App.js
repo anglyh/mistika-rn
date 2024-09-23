@@ -1,20 +1,34 @@
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Main } from './screens/Main';
+import { useFonts } from 'expo-font';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    DMSans_Regular: require('./assets/fonts/DMSans-Regular.ttf'),
+    DMSans_Medium: require('./assets/fonts/DMSans-Medium.ttf'),
+    DMSans_SemiBold: require('./assets/fonts/DMSans-SemiBold.ttf'),
+    DMSans_Bold: require('./assets/fonts/DMSans-Bold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return null; // No mostrar nada hasta que las fuentes estén cargadas
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <Main/>
+      </View>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
