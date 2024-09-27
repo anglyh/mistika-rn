@@ -43,7 +43,7 @@ export function Register() {
       const response = await axios.post(
         "http://192.168.1.40:5000/auth/register",
         {
-          nombre: name,
+          name,
           email,
           password,
         }
