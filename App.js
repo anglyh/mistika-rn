@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
+  
   let [fontsLoaded] = useFonts({
     DMSans_Regular: require('./assets/fonts/DMSans-Regular.ttf'),
     DMSans_Medium: require('./assets/fonts/DMSans-Medium.ttf'),

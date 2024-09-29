@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet } from "react-native";
 import { GlobalText } from "./GlobalText";
+import colors from "../theme/colors";
 
 export function Button(props) {
   return (
@@ -9,8 +10,8 @@ export function Button(props) {
           backgroundColor: props.disabled
             ? "#ccc"
             : pressed
-            ? props.colorPressed || "#ECE1A1DD"
-            : props.color || "#ECE1A1",
+            ? props.colorPressed || colors.secundarioMoradoPressed
+            : props.color || colors.secundarioMorado,
           height: 52,
           justifyContent: "center",
         },
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 8,
     alignItems: "center",
-    borderRadius: 10,
+    borderRadius: 50,
   },
   text: {
     fontSize: 16,

@@ -10,13 +10,12 @@ import {
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import { Button } from "../components/Button";
-import logosinfondo from "../assets/logosinfondo.png";
+import logo from "../assets/images/logo.png";
 import { GlobalText } from "../components/GlobalText";
 import { CustomTextInput } from "../components/CustomTextInput";
 import * as NavigationBar from "expo-navigation-bar";
 import { useNavigation } from "@react-navigation/native";
-
-NavigationBar.setBackgroundColorAsync("#A6D1DD");
+import colors from "../theme/colors";
 
 export function Login() {
   const navigation = useNavigation();
@@ -61,7 +60,7 @@ export function Login() {
     >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View
-          className="flex-1 justify-between items-center bg-primario"
+          className="flex-1 justify-between items-center bg-white"
           style={{ paddingVertical: 8 }}
         >
           <View className="w-4/5 flex">
@@ -69,7 +68,7 @@ export function Login() {
               <Image
                 className="w-full h-full"
                 resizeMode="contain"
-                source={logosinfondo}
+                source={logo}
               />
             </View>
 
@@ -117,7 +116,7 @@ export function Login() {
               ¿No tienes cuenta?
             </GlobalText>
             <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-              <GlobalText style={{ color: "#0A134F", fontSize: 15 }}>
+              <GlobalText style={{ color: colors.secundario, fontSize: 15 }}>
                 Regístrate
               </GlobalText>
             </TouchableOpacity>
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontFamily: "DMSans_SemiBold",
-    color: "#223049",
+    color: colors.secundario,
     marginBottom: 16,
   },
 });

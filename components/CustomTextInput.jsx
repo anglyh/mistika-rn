@@ -1,17 +1,18 @@
 import React, { forwardRef } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import colors from '../theme/colors';
 
 export const CustomTextInput = forwardRef(
   ({ iconName, placeholder, ...props }, ref) => {
     return (
       <View style={styles.inputContainer}>
-        <Icon name={iconName} size={24} color="#9EA8B9" style={styles.icon} />
+        <Icon name={iconName} size={24} color={colors.textPlaceholder} style={styles.icon} />
         <TextInput
           ref={ref} // Aquí pasamos la referencia al TextInput
           style={styles.input}
           placeholder={placeholder}
-          placeholderTextColor="#9EA8B9"
+          placeholderTextColor={colors.textPlaceholder}
           {...props} // Otros props como onChangeText, onSubmitEditing, etc.
         />
       </View>
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F9FE',
+    backgroundColor: colors.bgTextInput,
     borderRadius: 10,
     height: 52,
     paddingHorizontal: 15,
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
-    color: '#9EA8B9',
+    color: colors.textPlaceholder,
     fontFamily: 'DMSans_Medium',
   },
 });
