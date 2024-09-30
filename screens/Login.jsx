@@ -7,18 +7,17 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useRef } from "react";
-import axios from "axios";
+import React, { useState, useRef, useContext } from "react";
 import { Button } from "../components/Button";
 import logo from "../assets/images/logo.png";
 import { GlobalText } from "../components/GlobalText";
 import { CustomTextInput } from "../components/CustomTextInput";
-import * as NavigationBar from "expo-navigation-bar";
-import { useNavigation } from "@react-navigation/native";
 import colors from "../theme/colors";
+import { AuthContext } from "../context/AuthContext";
+import { authService } from "../services/authService";
 
-export function Login() {
-  const navigation = useNavigation();
+export function Login({ navigation }) {
+  const { setIsLoggedIn } = useContext(AuthContext); // Importamos el contexto
 
   // Estados para los campos
   const [email, setEmail] = useState("");
@@ -32,17 +31,14 @@ export function Login() {
   // Función para manejar el inicio de sesión
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://192.168.1.40:5000/auth/login", {
-        email,
-        password,
-      });
-
-      if (response.status === 200) { // Cambiado a 200
+      const data = await authService.login(email, password);
+      if (data.token) {
         alert("Inicio de sesión correcto");
-        navigation.navigate("Home");
-        setEmail(""); // Limpiar el campo de email
-        setPassword(""); // Limpiar el campo de contraseña
+        setIsLoggedIn(true); // Cambiar el estado de autenticación
+        setEmail("");
+        setPassword("");
       }
+      setPassword("");
     } catch (error) {
       console.error(error);
       if (error.response && error.response.data) {

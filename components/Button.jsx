@@ -3,6 +3,11 @@ import { GlobalText } from "./GlobalText";
 import colors from "../theme/colors";
 
 export function Button(props) {
+  const generatePressedColor = (color) => {
+    if (!color) return;
+    return color + "99";
+  }
+
   return (
     <Pressable
       style={({ pressed }) => [
@@ -10,7 +15,7 @@ export function Button(props) {
           backgroundColor: props.disabled
             ? "#ccc"
             : pressed
-            ? props.colorPressed || colors.secundarioMoradoPressed
+            ? generatePressedColor(props.color) || colors.secundarioMoradoPressed
             : props.color || colors.secundarioMorado,
           height: 52,
           justifyContent: "center",
