@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import { SectionHeader, EventCard, RecommendedEvent } from '../../components/EventComponents';
-import { getRecommendedEvents, getAllEvents } from '../../services/getEvents';
+import { getRecommendedEvents, getAllEvents } from '../../lib/getEvents';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { EventDetailsScreen } from './EventDetailsScreen';
 
 export function EventsScreen() {
+
   const [recommendedEvents, setRecommendedEvents] = useState([]);
   const [monthlyEvents, setMonthlyEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -87,3 +88,13 @@ export function EventsScreen() {
   );
 }
 
+// const Stack = createStackNavigator();
+
+// export default function EventStack() {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name="Events" component={EventsScreen} />
+//       <Stack.Screen name="EventDetails" component={EventDetailsScreen} options={{ title: "Detalles del evento" }} />
+//     </Stack.Navigator>
+//   );
+// }
