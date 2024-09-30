@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export function Home() {
-
+export function EventDetailsScreen() {
   return (
     <View>
-      <Text>Home Screen</Text>
+      <Text>EventsScreenDetails</Text>
     </View>
   )
 }

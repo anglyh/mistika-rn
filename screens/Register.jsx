@@ -7,20 +7,17 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useRef } from "react";
-import axios from "axios";
+import React, { useState, useRef, useContext } from "react";
 import { Button } from "../components/Button";
 import logo from "../assets/images/logo.png";
 import { GlobalText } from "../components/GlobalText";
 import { CustomTextInput } from "../components/CustomTextInput";
-import * as NavigationBar from "expo-navigation-bar";
-import { useNavigation } from "@react-navigation/native"; // Importamos useNavigation
 import colors from "../theme/colors";
+import { authService } from "../services/authService";
+import { AuthContext } from "../context/AuthContext";
 
-//NavigationBar.setBackgroundColorAsync("#A6D1DD");
-
-export function Register() {
-  const navigation = useNavigation(); // Usamos el hook para la navegación
+export function Register({ navigation }) {
+  const { setIsLoggedIn } = useContext(AuthContext); // Importamos el contexto
 
   // Estados para los nuevos campos
   const [name, setName] = useState("");
@@ -41,19 +38,16 @@ export function Register() {
     }
 
     try {
-      const response = await axios.post(
-        "http://192.168.1.40:5000/auth/register",
-        {
-          name,
-          email,
-          password,
-        }
-      );
-
-      if (response.status === 201) {
+      const data = await authService.register(name, email, password);
+      if (data.token) {
         alert("Usuario creado correctamente");
-        navigation.navigate("Home"); // Redirigimos a la pantalla de inicio
+        setIsLoggedIn(true); // Cambiar el estado de autenticación
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
       }
+
     } catch (error) {
       console.error(error);
       if (error.response && error.response.data) {
