@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -7,14 +7,14 @@ import { HomeTabs } from "./HomeTabs";
 import { Login } from "./Login";
 import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AuthContext, AuthProvider } from '../context/AuthContext';
+import { AuthProvider, useAuthContext } from '../context/AuthContext';
 import { authService } from "../services/authService";
 
 const Stack = createStackNavigator();
 
 function MainNavigator() {
   const insets = useSafeAreaInsets();
-  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn } = useAuthContext();
 
   useEffect(() => {
     const checkLoginStatus = async () => {

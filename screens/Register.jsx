@@ -14,10 +14,10 @@ import { GlobalText } from "../components/GlobalText";
 import { CustomTextInput } from "../components/CustomTextInput";
 import colors from "../theme/colors";
 import { authService } from "../services/authService";
-import { AuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 
 export function Register({ navigation }) {
-  const { setIsLoggedIn } = useContext(AuthContext); // Importamos el contexto
+  const { setIsLoggedIn } = useAuthContext(); // Obtener el estado de autenticación
 
   // Estados para los nuevos campos
   const [name, setName] = useState("");

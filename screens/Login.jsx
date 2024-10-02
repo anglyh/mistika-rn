@@ -13,11 +13,11 @@ import logo from "../assets/images/logo.png";
 import { GlobalText } from "../components/GlobalText";
 import { CustomTextInput } from "../components/CustomTextInput";
 import colors from "../theme/colors";
-import { AuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 import { authService } from "../services/authService";
 
 export function Login({ navigation }) {
-  const { setIsLoggedIn } = useContext(AuthContext); // Importamos el contexto
+  const { setIsLoggedIn } = useAuthContext(); // Obtener el estado de autenticación
 
   // Estados para los campos
   const [email, setEmail] = useState("");
