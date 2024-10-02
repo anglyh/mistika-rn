@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import { SectionHeader, EventCard, RecommendedEvent } from '../../components/EventComponents';
-import { getRecommendedEvents, getAllEvents } from '../../lib/getEvents';
+import { getRecommendedEvents, getAllEvents } from '../../services/getEvents';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { EventDetailsScreen } from './EventDetailsScreen';
