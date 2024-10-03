@@ -1,9 +1,9 @@
 import axios from 'axios';
-//const axios = require('axios');
+const apiUrl = process.env.EXPO_PUBLIC_API_URL
 
 export async function getRecommendedEvents() {
   try {
-    const response = await axios.get("http://192.168.1.40:5000/events/");
+    const response = await axios.get(`${apiUrl}/events/`);
     const events = response.data;
     let recommendedEvents = [];
     for (let event of events) {
@@ -17,7 +17,7 @@ export async function getRecommendedEvents() {
 
 export async function getAllEvents() {
   try {
-    const response = await axios.get("http://192.168.1.40:5000/events/");
+    const response = await axios.get(`${apiUrl}/events/`);
     const events = response.data;
     return events;
   } catch (error) {
