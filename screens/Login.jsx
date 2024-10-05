@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "../components/Button";
 import logo from "../assets/images/logo.png";
 import { GlobalText } from "../components/GlobalText";
@@ -60,7 +60,7 @@ export function Login({ navigation }) {
           style={{ paddingVertical: 8 }}
         >
           <View className="w-4/5 flex">
-            <View className="w-full max-w-[300px] aspect-square">
+            <View className="w-full aspect-square">
               <Image
                 className="w-full h-full"
                 resizeMode="contain"

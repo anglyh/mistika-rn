@@ -4,49 +4,11 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  FlatList,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { GlobalText } from "./GlobalText";
 import colors from "../theme/colors";
-import { Button } from "./Button";
-
-function monthParser(month) {
-  const months = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
-  return months[month - 1];
-}
-
-function formatDateToPeruTime(isoDateString) {
-  const date = new Date(isoDateString);
-  return date.toLocaleDateString("es-PE", {
-    timeZone: "America/Lima",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  })
-}
-
-function formatHourToPeruTime(isoDateString) {
-  const date = new Date(isoDateString);
-  return date.toLocaleTimeString("es-PE", {
-    timeZone: "America/Lima",
-    hour: "2-digit",
-    minute: "2-digit",
-  })
-}
+import { formatDateToPeruTime, formatHourToPeruTime, monthParser } from "../utils/dateUtils";
 
 export function SectionHeader({ title, onPress }) {
   return (
@@ -114,8 +76,6 @@ export function RecommendedEvent({ event, onPress }) {
   );
 }
 
-
-
 const styles = StyleSheet.create({
   sectionHeaderContainer: {
     flexDirection: "row",
@@ -129,13 +89,12 @@ const styles = StyleSheet.create({
     color: colors.secundario,
   },
   sectionHeaderButton: {
-    color: "#1D4ED8",
+    color: colors.textPlaceholder,
   },
   eventCardContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 8,
-    
     height: 97,
   },
   eventCardImage: {
@@ -149,6 +108,7 @@ const styles = StyleSheet.create({
   },
   eventCardTitle: {
     fontFamily: "DMSans_Medium",
+    color: colors.secundario,
   },
   eventCardRow: {
     flexDirection: "row",

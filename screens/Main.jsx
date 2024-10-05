@@ -9,6 +9,8 @@ import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthProvider, useAuthContext } from '../context/AuthContext';
 import { authService } from "../services/authService";
+import { EventDetailsScreen } from "./tabNavigatiorScreens/EventDetailsScreen";
+import { CustomHeader } from "../components/CustomHeader";
 
 const Stack = createStackNavigator();
 
@@ -43,8 +45,13 @@ function MainNavigator() {
     <View style={{ flex: 1, paddingTop: insets.top, paddingBottom: insets.bottom }}>
       <Stack.Navigator>
         {isLoggedIn ? (
-          <Stack.Screen name="HomeTabs" component={HomeTabs} options={{ headerShown: false }} />
-        ) : (
+          <Stack.Group >
+            <Stack.Screen name="HomeTabs" component={HomeTabs} options={{ headerShown: false }} />
+            <Stack.Screen name="EventDetails" component={EventDetailsScreen} options={{ header: ({ navigation, route }) => (
+              <CustomHeader navigation={navigation} screenToNavigate="Eventos" rightButtonOnPress={() => console.log('Right Button Pressed')} />
+            ) }} />
+          </Stack.Group>
+         ) : (
           <Stack.Group screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
