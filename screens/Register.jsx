@@ -69,7 +69,7 @@ export function Register({ navigation }) {
           style={{ paddingVertical: 8 }}
         >
           <View className="w-4/5 flex">
-            <View className="w-full max-w-[300px] aspect-square">
+            <View className="w-full aspect-square">
               <Image
                 className="w-full h-full"
                 resizeMode="contain"
