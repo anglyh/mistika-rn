@@ -109,6 +109,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 40,
     paddingHorizontal: 10,
-    fontFamily: 'DMSans', // Usa la misma fuente
+    fontFamily: 'DMSans_Regular', // Usa la misma fuente
   },
 });
