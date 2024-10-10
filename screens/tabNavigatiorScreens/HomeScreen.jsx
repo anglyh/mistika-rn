@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import { useAuthContext } from "../../context/AuthContext";
-import { DrawerIcon } from '../../components/DrawerIcon'; // Asegúrate de importar el DrawerIcon
+import { DrawerIcon } from '../../components/DrawerIcon';
 
 export function HomeScreen() {
   const { setIsLoggedIn } = useAuthContext();
