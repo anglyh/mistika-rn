@@ -20,7 +20,7 @@ export function RestaurantInfoCard({ restaurant, style }) {
       
       <View style={styles.row}>
         <Feather name="map-pin" size={16} color={colors.textPlaceholder} />
-        <GlobalText style={styles.infoText}>{restaurant.location.address}</GlobalText>
+        <GlobalText style={styles.infoText}>{restaurant.location}</GlobalText>
       </View>
       
       <View style={styles.row}>

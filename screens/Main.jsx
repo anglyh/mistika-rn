@@ -11,6 +11,7 @@ import { AuthProvider, useAuthContext } from '../context/AuthContext';
 import { authService } from "../services/authService";
 import { EventDetailsScreen } from "./tabNavigatiorScreens/EventDetailsScreen";
 import { CustomHeader } from "../components/CustomHeader";
+import { RestaurantDetailsScreen } from "./tabNavigatiorScreens/RestaurantDetailsSreen";
 
 const Stack = createStackNavigator();
 
@@ -50,6 +51,11 @@ function MainNavigator() {
             <Stack.Screen name="EventDetails" component={EventDetailsScreen} options={{ header: ({ navigation, route }) => (
               <CustomHeader navigation={navigation} screenToNavigate="Eventos" rightButtonOnPress={() => console.log('Right Button Pressed')} />
             ) }} />
+
+            <Stack.Screen name="RestaurantDetails" component={RestaurantDetailsScreen} options={{ header: ({ navigation, route }) => (
+              <CustomHeader navigation={navigation} screenToNavigate="Restaurantes" rightButtonOnPress={() => console.log('Right Button Pressed')} />
+            ) }} />
+
           </Stack.Group>
          ) : (
           <Stack.Group screenOptions={{ headerShown: false }}>
