@@ -4,7 +4,7 @@ import { GlobalText } from './GlobalText';
 import { Feather } from '@expo/vector-icons';
 import colors from '../theme/colors';
 
-export function RestaurantInfoCard({ restaurant, style }) {
+export function RestaurantInfoCard({ item, style }) {
   // Calcular la calificación promedio
   const calculateAverageRating = (reviews) => {
     if (!reviews || !Array.isArray(reviews) || reviews.length === 0) return 0;
@@ -14,25 +14,25 @@ export function RestaurantInfoCard({ restaurant, style }) {
 
   return (
     <View style={[styles.container, style]}>
-      <Image source={{ uri: restaurant.image }} style={styles.image} />
-      <GlobalText style={styles.title}>{restaurant.title}</GlobalText>
-      <GlobalText style={styles.description}>{restaurant.description}</GlobalText>
+      
+      <GlobalText style={styles.title}>{item.title}</GlobalText>
+      <GlobalText style={styles.description}>{item.description}</GlobalText>
       
       <View style={styles.row}>
         <Feather name="map-pin" size={16} color={colors.textPlaceholder} />
-        <GlobalText style={styles.infoText}>{restaurant.location || "Dirección no disponible"}</GlobalText>
+        <GlobalText style={styles.infoText}>{item.location.address|| "Dirección no disponible"}</GlobalText>
       </View>
       
       <View style={styles.row}>
         <Feather name="star" size={16} color={colors.textPlaceholder} />
         <GlobalText style={styles.infoText}>
-          Calificación Promedio: {calculateAverageRating(restaurant.reviews)}
+          Calificación Promedio: {calculateAverageRating(item.reviews)}
         </GlobalText>
       </View>
 
       <GlobalText style={styles.menuTitle}>Menú:</GlobalText>
       <FlatList
-        data={restaurant.menu || []}
+        data={item.menu || []}
         keyExtractor={(item) => item.item}
         renderItem={({ item }) => (
           <View style={styles.menuItem}>
@@ -55,12 +55,6 @@ const styles = StyleSheet.create({
     gap: 10,
     justifyContent: 'center',
   },
-  image: {
-    width: '100%',
-    height: 200,
-    borderRadius: 20,
-    marginBottom: 10,
-  },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -69,7 +63,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'DMSans_Bold',
     fontSize: 20,
-    marginBottom: 8,
+    marginBottom: 14,
     color: colors.secundario,
   },
   description: {

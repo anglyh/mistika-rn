@@ -17,7 +17,7 @@ export function EventDetailsScreen({ route }) {
     <View className="flex-1 justify-between bg-primario">
       <Image source={{ uri: eventImage }} style={styles.image} />
       <View style={styles.overlay} />
-      <View style={{ flex: 1 }} />
+      <View className="flex-1" />
       {/* Vista principal */}
       <View style={styles.container}>
         <InfoCard item={route.params}/>

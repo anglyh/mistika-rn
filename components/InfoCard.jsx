@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { GlobalText } from './GlobalText';
-import { formatDateToPeruTime, formatHourToPeruTime, monthParser } from '../utils/dateUtils';
+import { formatDateToPeruTime, formatHourToPeruTime } from '../utils/dateUtils';
 import { Feather } from '@expo/vector-icons';
 import colors from '../theme/colors';
 

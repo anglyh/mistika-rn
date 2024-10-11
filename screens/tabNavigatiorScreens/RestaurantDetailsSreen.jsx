@@ -3,59 +3,59 @@ import React from "react";
 import { RestaurantInfoCard } from "../../components/RestaurantInfoCard"; 
 import { GlobalText } from "../../components/GlobalText";
 import { Button } from "../../components/Button";
-import colors from '../../theme/colors'; // Asegúrate de importar los colores
+import colors from '../../theme/colors';
 
 export function RestaurantDetailsScreen({ route }) {
   const {
     image,
-    title,
-    description,
-    menu,
   } = route.params;
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.primario }}>
+    <View className="flex-1 justify-between bg-primario">
       <Image source={{ uri: image }} style={styles.image} />
       <View style={styles.overlay} />
+      <View className="flex-1"></View>
       <View style={styles.container}>
-        <RestaurantInfoCard restaurant={{ 
-          title, 
-          description, 
-          menu, 
-          image 
-        }} />
+        <RestaurantInfoCard item={route.params} />
         <View style={styles.restaurantDetails}>
-          <GlobalText style={styles.restaurantDescription} numberOfLines={3}>
-            {description}
-          </GlobalText>
           <Button content="Reservar Mesa" onPress={() => { /* Aquí puedes agregar la lógica para reservar */ }} />
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   image: {
-    width: '100%',
-    height: 200, // Ajusta según sea necesario
+    width: "100%",
+    position: "absolute",
+    height: "50%",
+    borderBottomLeftRadius: 70,
+    borderBottomRightRadius: 70,
+    zIndex: -1,
   },
   overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 200, // Ajusta según sea necesario
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.2)",
+    borderBottomLeftRadius: 70,
+    borderBottomRightRadius: 70,
+    height: "50%",
   },
   container: {
-    padding: 16,
-    backgroundColor: colors.primario,
+    height: "65%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingBottom: 9,
+    paddingHorizontal: 16,
   },
   restaurantDetails: {
     marginTop: 20,
+    justifyContent: "flex-end",
+    flex: 1,
+    width: "100%",
+    paddingTop: 20,
   },
   restaurantDescription: {
-    // Estilos para la descripción del restaurante
+    textAlign: "justify",
   },
 });

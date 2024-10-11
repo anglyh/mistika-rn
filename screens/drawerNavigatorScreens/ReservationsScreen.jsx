@@ -9,30 +9,23 @@ export function ReservationsScreen({ navigation }) {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchReservations = async () => {
-      if (user && user.userId) {
-        try {
-          const reservationsData = await getUserReservations(user.userId);
-          setReservations(reservationsData);
-        } catch (error) {
-          console.error('Error fetching reservations:', error);
-        } finally {
-          setLoading(false);
-        }
-      } else {
-        console.error("Usuario no definido o sin ID");
+  const fetchReservations = async () => {
+    if (user && user.userId) {
+      try {
+        const reservationsData = await getUserReservations(user.userId);
+        setReservations(reservationsData);
+      } catch (error) {
+        console.error('Error fetching reservations:', error);
+      } finally {
+        setLoading(false);
       }
-    };
+    } else {
+      console.error("Usuario no definido o sin ID");
+    }
+  };
 
+  useEffect(() => {
     fetchReservations();
-
-    // Actualiza las reservaciones cada 5 minutos
-    const interval = setInterval(() => {
-      fetchReservations();
-    }, 300000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (

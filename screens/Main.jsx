@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View, ActivityIndicator } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthProvider, useAuthContext } from "../context/AuthContext";
-import { authService } from "../services/authService";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { HomeDrawers } from "./HomeDrawers";

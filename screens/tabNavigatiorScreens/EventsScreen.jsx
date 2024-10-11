@@ -20,31 +20,23 @@ export function EventsScreen({ navigation }) {
   const [monthlyEvents, setMonthlyEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Función para obtener eventos recomendados y eventos del mes
+  const fetchEvents = async () => {
+    try {
+      const allEvents = await getAllEvents();
+      setMonthlyEvents(allEvents);
+
+      const recommendedEvents = await getRecommendedEvents();
+      setRecommendedEvents(recommendedEvents);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    } finally {
+      setLoading(false); // Ocultar loader cuando se carguen los datos
+    }
+  };
+
   useEffect(() => {
-    // Función para obtener eventos recomendados y eventos del mes
-    const fetchEvents = async () => {
-      try {
-        const allEvents = await getAllEvents();
-        setMonthlyEvents(allEvents);
-
-        const recommendedEvents = await getRecommendedEvents();
-        setRecommendedEvents(recommendedEvents);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      } finally {
-        setLoading(false); // Ocultar loader cuando se carguen los datos
-      }
-    };
-
     fetchEvents();
-
-    // Configurar un intervalo para actualizar solo los eventos recomendados
-    const interval = setInterval(() => {
-      fetchEvents();
-    }, 600000);
-
-    // Limpiar el intervalo al desmontar el componente
-    return () => clearInterval(interval);
   }, []);
 
   return ( 

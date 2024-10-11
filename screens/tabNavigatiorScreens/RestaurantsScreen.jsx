@@ -13,19 +13,19 @@ export function RestaurantsScreen() {
   const [search, setSearch] = useState('');
   const navigation = useNavigation();
 
+  const fetchRestaurants = async () => {
+    try {
+      const allRestaurants = await getAllRestaurants();
+      console.log(allRestaurants); // Verifica los datos aquí
+      setRestaurants(allRestaurants); // Asegúrate de que allRestaurants sea un array
+    } catch (error) {
+      console.error("Error fetching restaurants:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   useEffect(() => {
-    const fetchRestaurants = async () => {
-      try {
-        const allRestaurants = await getAllRestaurants();
-        console.log(allRestaurants); // Verifica los datos aquí
-        setRestaurants(allRestaurants); // Asegúrate de que allRestaurants sea un array
-      } catch (error) {
-        console.error("Error fetching restaurants:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchRestaurants();
   }, []);
 
@@ -73,7 +73,7 @@ export function RestaurantsScreen() {
         renderItem={({ item: restaurant }) => (
           <RestaurantCard 
             restaurant={restaurant}
-            onPress={() => navigation.navigate("RestaurantDetails", { // Asegúrate de que el nombre coincida
+            onPress={() => navigation.navigate("RestaurantDetailsScreen", { // Asegúrate de que el nombre coincida
               image: restaurant.image,
               title: restaurant.title,
               description: restaurant.description,
@@ -118,6 +118,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 40,
     paddingHorizontal: 10,
-    fontFamily: 'DMSans', // Usa la misma fuente
+    fontFamily: 'DMSans_Regular', // Usa la misma fuente
   },
 });
