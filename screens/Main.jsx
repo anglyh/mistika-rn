@@ -32,12 +32,63 @@ function MainNavigator() {
       style={{ flex: 1, paddingTop: insets.top, paddingBottom: insets.bottom }}
     >
       <Stack.Navigator>
-        {isLoggedIn ? (
-          <Stack.Group >
-            <Stack.Screen name="HomeTabs" component={HomeTabs} options={{ headerShown: false }} />
-            <Stack.Screen name="EventDetails" component={EventDetailsScreen} options={{ header: ({ navigation, route }) => (
-              <CustomHeader navigation={navigation} screenToNavigate="Eventos" rightButtonOnPress={() => console.log('Right Button Pressed')} />
-            ) }} />
+        {user.isAuthenticated ? (
+          <Stack.Group>
+            <Stack.Screen
+              name="HomeDrawers"
+              component={HomeDrawers}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="HomeTabs"
+              component={HomeTabs}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="EventDetails"
+              component={EventDetailsScreen}
+              options={{
+                header: ({ navigation }) => (
+                  <CustomHeader
+                    navigation={navigation}
+                    screenToNavigate="Eventos"
+                    rightButtonOnPress={() =>
+                      console.log("Right Button Pressed")
+                    }
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="RestaurantDetailsScreen"
+              component={RestaurantDetailsScreen}
+              options={{
+                header: ({ navigation }) => (
+                  <CustomHeader
+                    navigation={navigation}
+                    screenToNavigate="Restaurantes"
+                    rightButtonOnPress={() =>
+                      console.log("Right Button Pressed")
+                    }
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="PlaceDetailsScreen"
+              component={PlaceDetailsScreen}
+              options={{
+                header: ({ navigation }) => (
+                  <CustomHeader
+                    navigation={navigation}
+                    screenToNavigate="Lugares"
+                    rightButtonOnPress={() =>
+                      console.log("Right Button Pressed")
+                    }
+                  />
+                ),
+              }}
+            />
           </Stack.Group>
         ) : (
           <Stack.Group screenOptions={{ headerShown: false }}>
