@@ -7,7 +7,7 @@ import colors from '../theme/colors';
 export function RestaurantInfoCard({ restaurant, style }) {
   // Calcular la calificación promedio
   const calculateAverageRating = (reviews) => {
-    if (!reviews || reviews.length === 0) return 0;
+    if (!reviews || !Array.isArray(reviews) || reviews.length === 0) return 0;
     const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
     return (totalRating / reviews.length).toFixed(1);
   };
@@ -20,7 +20,7 @@ export function RestaurantInfoCard({ restaurant, style }) {
       
       <View style={styles.row}>
         <Feather name="map-pin" size={16} color={colors.textPlaceholder} />
-        <GlobalText style={styles.infoText}>{restaurant.location.address}</GlobalText>
+        <GlobalText style={styles.infoText}>{restaurant.location || "Dirección no disponible"}</GlobalText>
       </View>
       
       <View style={styles.row}>
@@ -32,7 +32,7 @@ export function RestaurantInfoCard({ restaurant, style }) {
 
       <GlobalText style={styles.menuTitle}>Menú:</GlobalText>
       <FlatList
-        data={restaurant.menu}
+        data={restaurant.menu || []}
         keyExtractor={(item) => item.item}
         renderItem={({ item }) => (
           <View style={styles.menuItem}>

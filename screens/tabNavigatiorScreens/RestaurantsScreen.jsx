@@ -17,7 +17,8 @@ export function RestaurantsScreen() {
     const fetchRestaurants = async () => {
       try {
         const allRestaurants = await getAllRestaurants();
-        setRestaurants(allRestaurants);
+        console.log(allRestaurants); // Verifica los datos aquí
+        setRestaurants(allRestaurants); // Asegúrate de que allRestaurants sea un array
       } catch (error) {
         console.error("Error fetching restaurants:", error);
       } finally {
@@ -36,6 +37,14 @@ export function RestaurantsScreen() {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={colors.secundario} />
+      </View>
+    );
+  }
+
+  if (restaurants.length === 0) {
+    return (
+      <View style={styles.loadingContainer}>
+        <GlobalText>No se encontraron restaurantes</GlobalText>
       </View>
     );
   }
@@ -64,7 +73,7 @@ export function RestaurantsScreen() {
         renderItem={({ item: restaurant }) => (
           <RestaurantCard 
             restaurant={restaurant}
-            onPress={() => navigation.navigate("RestaurantDetailsScreen", { 
+            onPress={() => navigation.navigate("RestaurantDetails", { // Asegúrate de que el nombre coincida
               image: restaurant.image,
               title: restaurant.title,
               description: restaurant.description,
@@ -81,7 +90,7 @@ export function RestaurantsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primarioGris, // Cambia el color de fondo
+    backgroundColor: colors.primarioGris,
   },
   loadingContainer: {
     flex: 1,
@@ -92,8 +101,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "DMSans_SemiBold",
     color: colors.secundario,
-    textAlign: 'center', // Centrar el texto
-    marginTop: 30, // Espaciado vertical
+    textAlign: 'center',
+    marginTop: 30,
     marginBottom: 10,
   },
   searchContainer: {
@@ -104,11 +113,11 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    borderColor: colors.secundario, // Cambia el color del borde
+    borderColor: colors.secundario,
     borderWidth: 1,
     borderRadius: 8,
     height: 40,
     paddingHorizontal: 10,
-    fontFamily: 'DMSans_Regular', // Usa la misma fuente
+    fontFamily: 'DMSans', // Usa la misma fuente
   },
 });

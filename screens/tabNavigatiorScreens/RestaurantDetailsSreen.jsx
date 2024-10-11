@@ -1,68 +1,61 @@
-import { StyleSheet, View, Image } from "react-native";
-import React from "react";
-import { RestaurantInfoCard } from "../../components/RestaurantInfoCard";
-import MapView from "react-native-maps";
-import { Button } from "../../components/Button";
-import colors from "../../theme/colors";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, View, Image, ScrollView } from "react-native";
+import React from "react"; 
+import { RestaurantInfoCard } from "../../components/RestaurantInfoCard"; 
 import { GlobalText } from "../../components/GlobalText";
+import { Button } from "../../components/Button";
+import colors from '../../theme/colors'; // Asegúrate de importar los colores
 
 export function RestaurantDetailsScreen({ route }) {
-  const { image, title, description, location, menu } = route.params;
+  const {
+    image,
+    title,
+    description,
+    menu,
+  } = route.params;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.primario }}>
+    <ScrollView style={{ flex: 1, backgroundColor: colors.primario }}>
       <Image source={{ uri: image }} style={styles.image} />
       <View style={styles.overlay} />
-      <RestaurantInfoCard restaurant={{ title, description, location, menu, image }} />
-      <View style={styles.eventMapWrapper}>
-        <GlobalText style={styles.eventDescription}>{description}</GlobalText>
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: location.coordinates[1],
-            longitude: location.coordinates[0],
-            latitudeDelta: 0.025,
-            longitudeDelta: 0.025,
-          }}
-        />
+      <View style={styles.container}>
+        <RestaurantInfoCard restaurant={{ 
+          title, 
+          description, 
+          menu, 
+          image 
+        }} />
+        <View style={styles.restaurantDetails}>
+          <GlobalText style={styles.restaurantDescription} numberOfLines={3}>
+            {description}
+          </GlobalText>
+          <Button content="Reservar Mesa" onPress={() => { /* Aquí puedes agregar la lógica para reservar */ }} />
+        </View>
       </View>
-      <Button content="Reservar Mesa" onPress={() => { }} />
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   image: {
-    width: "100%",
-    height: "50%",
-    borderBottomLeftRadius: 70,
-    borderBottomRightRadius: 70,
-    position: "absolute",
-    zIndex: -1,
+    width: '100%',
+    height: 200, // Ajusta según sea necesario
   },
   overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.2)",
-    borderBottomLeftRadius: 70,
-    borderBottomRightRadius: 70,
-    height: "50%",
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 200, // Ajusta según sea necesario
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  eventMapWrapper: {
-    gap: 20,
-    justifyContent: "flex-end",
-    flex: 1,
-    width: "100%",
-    paddingBottom: 20, // Espaciado adicional
+  container: {
+    padding: 16,
+    backgroundColor: colors.primario,
   },
-  eventDescription: {
-    textAlign: "justify",
-    padding: 16, // Espaciado interno
+  restaurantDetails: {
+    marginTop: 20,
   },
-  map: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 50, // Borde redondeado para el mapa
-    overflow: "hidden", // Evita que el contenido (mapa) sobrepase los bordes redondeados
+  restaurantDescription: {
+    // Estilos para la descripción del restaurante
   },
 });
