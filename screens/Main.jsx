@@ -11,8 +11,10 @@ import { Register } from "./Register";
 import { HomeDrawers } from "./HomeDrawers";
 import { HomeTabs } from "./HomeTabs";
 import { EventDetailsScreen } from "./tabNavigatiorScreens/EventDetailsScreen";
+import { PlaceDetailsScreen } from "./tabNavigatiorScreens/PlaceDetailsScreen";
 import { RestaurantDetailsScreen } from "./tabNavigatiorScreens/RestaurantDetailsSreen"
 import { CustomHeader } from "../components/CustomHeader"; 
+
 
 const Stack = createStackNavigator();
 
@@ -68,6 +70,21 @@ function MainNavigator() {
                   <CustomHeader
                     navigation={navigation}
                     screenToNavigate="Restaurantes"
+                    rightButtonOnPress={() =>
+                      console.log("Right Button Pressed")
+                    }
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="PlaceDetailsScreen"
+              component={PlaceDetailsScreen}
+              options={{
+                header: ({ navigation }) => (
+                  <CustomHeader
+                    navigation={navigation}
+                    screenToNavigate="Lugares"
                     rightButtonOnPress={() =>
                       console.log("Right Button Pressed")
                     }
