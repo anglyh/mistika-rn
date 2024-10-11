@@ -1,58 +1,52 @@
-import { StyleSheet, View, Image, ScrollView } from "react-native";
-import React from "react"; 
+import { StyleSheet, View, Image } from "react-native";
+import React from "react";
 import { RestaurantInfoCard } from "../../components/RestaurantInfoCard"; 
 import { GlobalText } from "../../components/GlobalText";
+import MapView from "react-native-maps";
 import { Button } from "../../components/Button";
-import colors from '../../theme/colors'; // Asegúrate de importar los colores
 
 export function RestaurantDetailsScreen({ route }) {
   const {
     image,
     title,
     description,
+    location,
     menu,
   } = route.params;
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.primario }}>
+    <View style={{ flex: 1, justifyContent: "space-between", backgroundColor: colors.primario }}>
       <Image source={{ uri: image }} style={styles.image} />
       <View style={styles.overlay} />
+      <View style={{ flex: 1 }} />
       <View style={styles.container}>
         <RestaurantInfoCard restaurant={{ 
           title, 
           description, 
+          location, 
           menu, 
           image 
         }} />
-        <View style={styles.restaurantDetails}>
-          <Button content="Reservar Mesa" onPress={() => { /* Aquí puedes agregar la lógica para reservar */ }} />
+        <View style={styles.restaurantMapWrapper}>
+          <View style={{ overflow: "hidden", height: 64, marginTop: 20 }}>
+            <GlobalText style={styles.restaurantDescription} numberOfLines={3}>
+              {description}
+            </GlobalText>
+          </View>
+          <View style={styles.mapContainer}>
+            <MapView 
+              style={styles.map}
+              initialRegion={{
+                latitude: location.coordinates[1],
+                longitude: location.coordinates[0],
+                latitudeDelta: 0.025,
+                longitudeDelta: 0.025,
+              }}
+            />
+          </View>
+          <Button content="Reservar Mesa" onPress={() => { }} />
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  image: {
-    width: '100%',
-    height: 200, // Ajusta según sea necesario
-  },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 200, // Ajusta según sea necesario
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  container: {
-    padding: 16,
-    backgroundColor: colors.primario,
-  },
-  restaurantDetails: {
-    marginTop: 20,
-  },
-  restaurantDescription: {
-    // Estilos para la descripción del restaurante
-  },
-});

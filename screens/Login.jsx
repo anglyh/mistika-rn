@@ -17,7 +17,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { authService } from "../services/authService";
 
 export function Login({ navigation }) {
-  const { setIsLoggedIn } = useAuthContext(); // Obtener el estado de autenticación
+  const { login } = useAuthContext(); // Obtener el estado de autenticación
 
   // Estados para los campos
   const [email, setEmail] = useState("");
@@ -31,21 +31,9 @@ export function Login({ navigation }) {
   // Función para manejar el inicio de sesión
   const handleLogin = async () => {
     try {
-      const data = await authService.login(email, password);
-      if (data.token) {
-        alert("Inicio de sesión correcto");
-        setIsLoggedIn(true); // Cambiar el estado de autenticación
-        setEmail("");
-        setPassword("");
-      }
-      setPassword("");
+      await login(email, password);
     } catch (error) {
-      console.error(error);
-      if (error.response && error.response.data) {
-        setError(error.response.data.msg || "Error de inicio de sesión");
-      } else {
-        setError("Ocurrió un error al iniciar sesión");
-      }
+      setError(error.message || "Inicio de sesión fallido");
     }
   };
 
