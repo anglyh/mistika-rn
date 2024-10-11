@@ -19,9 +19,9 @@ export const AuthProvider = ({ children }) => {
   const checkAuth = async () => {
     setLoading(true);
     try {
-      const token = await authService.getToken();
-      console.log('Token:', token);
-      if (token) {
+      const isValidToken = await authService.verifyToken();
+      if (isValidToken === "Token válido") {
+        const token = await authService.getToken();
         const { userId, name, email } = authService.decodeToken(token);
         setUser({ userId, name, email, isAuthenticated: true });
       }

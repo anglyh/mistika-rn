@@ -44,5 +44,21 @@ export const authService = {
       console.error("Error al decodificar el token:", error);
       return null;
     }
-  }
+  },
+
+  // Verificar si el token es válido
+  verifyToken: async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      if (!token) throw new Error("Token no encontrado");
+
+      const response = await axios.get(`${apiUrl}/auth/verify-token`, { headers: { Authorization: `Bearer ${token}` } });
+      console.log("Verify token response:", response.data);
+      return response.data.message; 
+    } catch (error) {
+      //console.error("Error en la verificación del token:", error);
+      return false;
+    }
+  },
+
 };

@@ -22,7 +22,7 @@ export function StoresScreen({ navigation }) {
           <TouchableOpacity
             key={category.id}
             style={styles.categoryCard}
-            onPress={() => navigation.navigate('CategoryDetails', { category })}
+            onPress={() => navigation.navigate('PlaceDetailsScreen', { category })}
           >
             <Ionicons name={category.icon} size={50} color="white" style={styles.icon} />
             <Text style={styles.categoryText}>{category.name}</Text>
