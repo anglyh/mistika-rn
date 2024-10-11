@@ -10,6 +10,8 @@ import { Login } from "./Login";
 import { Register } from "./Register";
 import { HomeDrawers } from "./HomeDrawers";
 import { HomeTabs } from "./HomeTabs";
+import { PlaceDetailsScreen } from "./tabNavigatiorScreens/PlaceDetailsScreen";
+import { RestaurantDetailsScreen } from "./tabNavigatiorScreens/RestaurantDetailsSreen"
 import { EventDetailsScreen } from "./tabNavigatiorScreens/EventDetailsScreen";
 import { CustomHeader } from "../components/CustomHeader";
 
