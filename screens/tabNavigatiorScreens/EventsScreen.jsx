@@ -38,7 +38,7 @@ export function EventsScreen({ navigation }) {
 
     fetchEvents();
 
-    // Configurar un intervalo para actualizar solo los eventos recomendados cada 60 segundos
+    // Configurar un intervalo para actualizar solo los eventos recomendados
     const interval = setInterval(() => {
       fetchEvents();
     }, 600000);

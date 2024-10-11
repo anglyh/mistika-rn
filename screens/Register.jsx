@@ -17,7 +17,7 @@ import { authService } from "../services/authService";
 import { useAuthContext } from "../context/AuthContext";
 
 export function Register({ navigation }) {
-  const { setIsLoggedIn } = useAuthContext(); // Obtener el estado de autenticación
+  const { register } = useAuthContext(); // Obtener el estado de autenticación
 
   // Estados para los nuevos campos
   const [name, setName] = useState("");
@@ -38,23 +38,15 @@ export function Register({ navigation }) {
     }
 
     try {
-      const data = await authService.register(name, email, password);
-      if (data.token) {
-        alert("Usuario creado correctamente");
-        setIsLoggedIn(true); // Cambiar el estado de autenticación
-        setName("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-      }
-
+      await register(name, email, password);
+      alert("Usuario creado correctamente");
+      setName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
     } catch (error) {
-      console.error(error);
-      if (error.response && error.response.data) {
-        alert("Error de registro", error.response.data.message);
-      } else {
-        alert("Error de registro", "Ocurrió un error al crear el usuario");
-      }
+      //console.error("Error en el registro de Register: ", error.message);
+      alert(error.message);
     }
   };
 

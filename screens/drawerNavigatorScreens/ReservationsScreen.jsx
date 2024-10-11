@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, FlatList, ActivityIndicator, Text, StyleSheet } from 'react-native';
 import { useAuthContext } from "../../context/AuthContext";
 import { getUserReservations } from '../../services/getReservations';
+import { GlobalText } from '../../components/GlobalText';
 
 export function ReservationsScreen({ navigation }) {
   const { user } = useAuthContext();
@@ -10,9 +11,9 @@ export function ReservationsScreen({ navigation }) {
 
   useEffect(() => {
     const fetchReservations = async () => {
-      if (user && user.id) {
+      if (user && user.userId) {
         try {
-          const reservationsData = await getUserReservations(user.id);
+          const reservationsData = await getUserReservations(user.userId);
           setReservations(reservationsData);
         } catch (error) {
           console.error('Error fetching reservations:', error);
@@ -32,7 +33,7 @@ export function ReservationsScreen({ navigation }) {
     }, 300000);
 
     return () => clearInterval(interval);
-  }, [user]);
+  }, []);
 
   return (
     loading ? (
@@ -41,17 +42,17 @@ export function ReservationsScreen({ navigation }) {
       </View>
     ) : (
       <View style={styles.container}>
-        <Text style={styles.title}>Tus Reservaciones</Text>
+        <GlobalText style={styles.title}>Tus Reservaciones</GlobalText>
         <FlatList
           data={reservations}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View style={styles.reservationItem}>
-              <Text>ID: {item.id}</Text>
-              <Text>Fecha: {item.date}</Text>
-              <Text>Estado: {item.status}</Text>
-              <Text>Monto: ${item.amount}</Text>
-              <Text>Método de pago: {item.method}</Text>
+              <GlobalText>ID: {item.id}</GlobalText>
+              <GlobalText>Fecha: {item.date}</GlobalText>
+              <GlobalText>Estado: {item.status}</GlobalText>
+              <GlobalText>Monto: ${item.amount}</GlobalText>
+              <GlobalText>Método de pago: {item.method}</GlobalText>
             </View>
           )}
         />
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
     marginBottom: 16,
   },
   reservationItem: {

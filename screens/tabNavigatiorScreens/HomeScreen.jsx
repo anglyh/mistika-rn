@@ -1,21 +1,24 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import { useAuthContext } from "../../context/AuthContext";
 import { DrawerIcon } from '../../components/DrawerIcon';
 
 export function HomeScreen() {
-  const { setIsLoggedIn } = useAuthContext();
+  const { logout, user } = useAuthContext();
 
   const handleLogout = async () => {
-    await AsyncStorage.removeItem("token");
-    setIsLoggedIn(false);
+    try {
+      await logout();
+    } catch (error) {
+      setError(error.message || "Cierre de sesión fallido"); 
+    }
   }
 
   return (
     <View style={styles.container}>
       <DrawerIcon />
       <Text>Home Screen</Text>
+      <Text>{user.name}</Text>
       <Button title="Cerrar sesión" onPress={handleLogout} />
     </View>
   );
