@@ -3,6 +3,8 @@ import { View, FlatList, ActivityIndicator, Text, StyleSheet } from 'react-nativ
 import { useAuthContext } from "../../context/AuthContext";
 import { getUserReservations } from '../../services/getReservations';
 import { GlobalText } from '../../components/GlobalText';
+import { formatDateToPeruTime } from '../../utils/dateUtils';
+import colors from '../../theme/colors';
 
 export function ReservationsScreen({ navigation }) {
   const { user } = useAuthContext();
@@ -41,10 +43,9 @@ export function ReservationsScreen({ navigation }) {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View style={styles.reservationItem}>
-              <GlobalText>ID: {item.id}</GlobalText>
-              <GlobalText>Fecha: {item.date}</GlobalText>
+              <GlobalText>Fecha: {formatDateToPeruTime(item.date)}</GlobalText>
               <GlobalText>Estado: {item.status}</GlobalText>
-              <GlobalText>Monto: ${item.amount}</GlobalText>
+              <GlobalText>Monto: S./ {item.amount}</GlobalText>
               <GlobalText>Método de pago: {item.method}</GlobalText>
             </View>
           )}
@@ -57,12 +58,14 @@ export function ReservationsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 16,
     backgroundColor: 'white',
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     marginBottom: 16,
+    fontFamily: 'DMSans_SemiBold',
+    color: colors.secundario,
   },
   reservationItem: {
     padding: 16,

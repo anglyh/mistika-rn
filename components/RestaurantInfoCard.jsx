@@ -15,7 +15,7 @@ export function RestaurantInfoCard({ item, style }) {
   return (
     <View style={[styles.container, style]}>
       
-      <GlobalText style={styles.title}>{item.title}</GlobalText>
+      <GlobalText style={styles.name}>{item.name}</GlobalText>
       <GlobalText style={styles.description}>{item.description}</GlobalText>
       
       <View style={styles.row}>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 5,
   },
-  title: {
+  name: {
     fontFamily: 'DMSans_Bold',
     fontSize: 20,
     marginBottom: 14,

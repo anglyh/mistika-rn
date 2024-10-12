@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import { SectionHeader, EventCard, RecommendedEvent } from '../../components/EventComponents';
 import { getRecommendedEvents, getAllEvents } from '../../services/getEvents';
 
@@ -48,11 +48,12 @@ export function EventsScreen({ navigation }) {
       <View style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={{ flex: 0 }}>
         {/* Sección de Eventos Recomendados */}
-        <SectionHeader title="Eventos Recomendados" onPress={() => {}} />
+        <SectionHeader title="Eventos Recomendados" onPress={() => {}} style={{ marginBottom: 10 }} />
         <FlatList
           contentContainerStyle={{ paddingHorizontal: 16 }}
           horizontal
           showsHorizontalScrollIndicator={false}
+          ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
           data={recommendedEvents}
           keyExtractor={(event) => event._id}
           renderItem={({ item: event }) => (
@@ -66,7 +67,7 @@ export function EventsScreen({ navigation }) {
 
       <View style={{ flex: 1 }}>
         {/* Sección de Eventos del Mes */}
-        <SectionHeader title="Eventos este Mes" onPress={() => {}} />
+        <SectionHeader title="Eventos este Mes" onPress={() => {}} style={{ marginVertical: 10 }}/>
         <FlatList
           contentContainerStyle={{ paddingHorizontal: 16 }}
           showsVerticalScrollIndicator={false}

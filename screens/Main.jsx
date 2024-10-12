@@ -11,7 +11,7 @@ import { HomeTabs } from "./HomeTabs";
 import { PlaceDetailsScreen } from "./tabNavigatiorScreens/PlaceDetailsScreen";
 import { RestaurantDetailsScreen } from "./tabNavigatiorScreens/RestaurantDetailsSreen"
 import { EventDetailsScreen } from "./tabNavigatiorScreens/EventDetailsScreen";
-import { CustomHeader } from "../components/CustomHeader";
+import { CustomDetailsHeader } from "../components/CustomDetailsHeader";
 
 const Stack = createStackNavigator();
 
@@ -49,7 +49,7 @@ function MainNavigator() {
               component={EventDetailsScreen}
               options={{
                 header: ({ navigation }) => (
-                  <CustomHeader
+                  <CustomDetailsHeader
                     navigation={navigation}
                     screenToNavigate="Eventos"
                     rightButtonOnPress={() =>
@@ -64,7 +64,7 @@ function MainNavigator() {
               component={RestaurantDetailsScreen}
               options={{
                 header: ({ navigation }) => (
-                  <CustomHeader
+                  <CustomDetailsHeader
                     navigation={navigation}
                     screenToNavigate="Restaurantes"
                     rightButtonOnPress={() =>
@@ -79,7 +79,7 @@ function MainNavigator() {
               component={PlaceDetailsScreen}
               options={{
                 header: ({ navigation }) => (
-                  <CustomHeader
+                  <CustomDetailsHeader
                     navigation={navigation}
                     screenToNavigate="Lugares"
                     rightButtonOnPress={() =>

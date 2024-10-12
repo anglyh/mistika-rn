@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons"; 
 import colors from '../theme/colors';
 
-export function CustomHeader({ navigation, screenToNavigate, rightButtonOnPress }) {
+export function CustomDetailsHeader({ navigation, screenToNavigate, rightButtonOnPress }) {
   return (
     <View style={styles.container}>
       <Header

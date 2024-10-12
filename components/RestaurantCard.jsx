@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';    
 import colors from '../theme/colors'; // Asegúrate de importar tu archivo de colores
 import { GlobalText } from '../components/GlobalText'; // Asegúrate de importar GlobalText
 
 export function RestaurantCard({ restaurant, onPress }) {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
-      <GlobalText style={styles.title}>{restaurant.title}</GlobalText>
+      <GlobalText style={styles.title}>{restaurant.name}</GlobalText>
       <Image source={{ uri: restaurant.image }} style={styles.image} />
       <View style={styles.addressContainer}>
         <Ionicons name="location-sharp" size={18} color={colors.secundario} />
@@ -20,13 +20,12 @@ export function RestaurantCard({ restaurant, onPress }) {
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    margin: 10,
-    backgroundColor: colors.primario, // Usa el color de fondo definido
+    backgroundColor: colors.primario  , // Usa el color de fondo definido
     borderRadius: 10,
-    padding: 14,
+    padding: 8,
+    marginHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 200, // Define la altura total de la card
   },
   title: {
     fontSize: 12,

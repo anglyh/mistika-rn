@@ -10,9 +10,9 @@ import { GlobalText } from "./GlobalText";
 import colors from "../theme/colors";
 import { formatDateToPeruTime, formatHourToPeruTime, monthParser } from "../utils/dateUtils";
 
-export function SectionHeader({ title, onPress }) {
+export function SectionHeader({ title, onPress, style }) {
   return (
-    <View style={styles.sectionHeaderContainer}>
+    <View style={[styles.sectionHeaderContainer, style]}>
       <GlobalText style={styles.sectionHeaderTitle}>{title}</GlobalText>
       <TouchableOpacity onPress={onPress}>
         <GlobalText style={styles.sectionHeaderButton}>Ver todos</GlobalText>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 16,
+    paddingHorizontal: 16,
   },
   sectionHeaderTitle: {
     fontSize: 18,
@@ -127,13 +127,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   recommendedEventContainer: {
-
     borderRadius: 15,
     width: 280,
     height: 160,
   },
   recommendedEventCard: {
-    marginRight: 16,
   },
   carouselImage: {
     width: "100%",

@@ -30,7 +30,7 @@ export function RestaurantsScreen() {
   }, []);
 
   const filteredRestaurants = restaurants.filter(restaurant =>
-    restaurant.title.toLowerCase().includes(search.toLowerCase())
+    restaurant.name.toLowerCase().includes(search.toLowerCase())
   );
 
   if (loading) {
@@ -51,8 +51,6 @@ export function RestaurantsScreen() {
 
   return (
     <View style={styles.container}>
-      <GlobalText style={styles.title}>Restaurantes</GlobalText>
-
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -65,9 +63,10 @@ export function RestaurantsScreen() {
       </View>
 
       <FlatList
-        contentContainerStyle={{ paddingHorizontal: 16 }}
         numColumns={2} 
+        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         showsVerticalScrollIndicator={false}
+        style={{ paddingHorizontal: 5 }}
         data={filteredRestaurants}
         keyExtractor={(restaurant) => restaurant._id}
         renderItem={({ item: restaurant }) => (
@@ -75,7 +74,7 @@ export function RestaurantsScreen() {
             restaurant={restaurant}
             onPress={() => navigation.navigate("RestaurantDetailsScreen", { // Asegúrate de que el nombre coincida
               image: restaurant.image,
-              title: restaurant.title,
+              name: restaurant.name,
               description: restaurant.description,
               location: restaurant.location,
               menu: restaurant.menu 
@@ -90,26 +89,18 @@ export function RestaurantsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primarioGris,
+    backgroundColor: colors.primario,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    fontSize: 18,
-    fontFamily: "DMSans_SemiBold",
-    color: colors.secundario,
-    textAlign: 'center',
-    marginTop: 30,
-    marginBottom: 10,
-  },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
     marginVertical: 10,
+    paddingHorizontal: 16,
   },
   searchInput: {
     flex: 1,
@@ -117,7 +108,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     height: 40,
-    paddingHorizontal: 10,
+    paddingHorizontal: 16,
     fontFamily: 'DMSans_Regular', // Usa la misma fuente
   },
 });
