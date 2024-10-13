@@ -66,7 +66,7 @@ function MainNavigator() {
                 header: ({ navigation }) => (
                   <CustomDetailsHeader
                     navigation={navigation}
-                    screenToNavigate="Restaurantes"
+                    screenToNavigate="Tiendas2"
                     rightButtonOnPress={() =>
                       console.log("Right Button Pressed")
                     }
