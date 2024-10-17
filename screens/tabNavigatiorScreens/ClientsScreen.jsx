@@ -54,7 +54,7 @@ export function ClientsScreen() {
             renderItem={({ item: client }) => (
               <ClientCard 
                 client={client}
-                onPress={() => navigation.navigate("RestaurantDetailsScreen", {
+                onPress={() => navigation.navigate("ClientDetailsScreen", {
                   image: client.photos[0]?.photoReference || 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
                   name: client.name,
                   description: client.description,

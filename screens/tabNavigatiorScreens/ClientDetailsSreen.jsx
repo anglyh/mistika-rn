@@ -3,7 +3,7 @@ import React from "react";
 import { ClientDetailsInfoCard } from "../../components/ClientDetailsInfoCard";
 import { Button } from "../../components/Button";
 
-export function RestaurantDetailsScreen({ route }) {
+export function ClientDetailsScreen({ route }) {
   const {
     image,
   } = route.params;

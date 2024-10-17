@@ -9,7 +9,7 @@ export const authService = {
     try {
       const response = await axios.post(`${apiUrl}/auth/login`, { email, password });
       await AsyncStorage.setItem("token", response.data.token);
-      console.log("Login response:", response.data);
+      //console.log("Login response:", response.data);
       return "Login exitoso";
     } catch (error) {
       console.error("Error en el servicio de login: ", error.response?.data.message || error.message);
