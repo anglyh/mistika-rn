@@ -10,7 +10,6 @@ export function CustomMainHeader({ navigation }) {
   return (
     <View style={styles.container}>
       <Header
-        headerTitleAlign="center"
         headerStatusBarHeight={0}
         headerStyle={styles.headerStyle}
         headerLeft={() => (

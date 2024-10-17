@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../../theme/colors'; 
 import { SearchBar } from '../../components/SearchBar';
 import { SectionHeader } from '../../components/SectionHeader';
-import { getPhotoUrl } from '../../utils/formatPhotoReferenceToUri';
 
 export function ClientsScreen() {
   const [clients, setClients] = useState([]);
@@ -56,7 +55,7 @@ export function ClientsScreen() {
               <ClientCard 
                 client={client}
                 onPress={() => navigation.navigate("RestaurantDetailsScreen", {
-                  image: getPhotoUrl(client.photos[0].photoReference, client.photos[0].width),
+                  image: client.photos[0]?.photoReference || 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
                   name: client.name,
                   description: client.description,
                   location: client.location,

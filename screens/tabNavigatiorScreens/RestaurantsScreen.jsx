@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, ActivityIndicator, TextInput, StyleSheet } from 'react-native';
 import { RestaurantCard } from '../../components/RestaurantCard'; 
-import { getAllRestaurants } from '../../services/getRestaurants'; 
+import { getAllClients } from '../../services/getClients';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../theme/colors'; 
@@ -15,7 +15,7 @@ export function RestaurantsScreen() {
 
   const fetchRestaurants = async () => {
     try {
-      const allRestaurants = await getAllRestaurants();
+      const allRestaurants = await getAllClients();
       console.log(allRestaurants); // Verifica los datos aquí
       setRestaurants(allRestaurants); // Asegúrate de que allRestaurants sea un array
     } catch (error) {
