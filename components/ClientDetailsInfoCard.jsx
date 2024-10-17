@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import React from 'react';
 import { GlobalText } from './GlobalText';
 import { Feather } from '@expo/vector-icons';
 import colors from '../theme/colors';
 
-export function RestaurantInfoCard({ item, style }) {
+export function ClientDetailsInfoCard({ item, style }) {
   // Calcular la calificación promedio
   const calculateAverageRating = (reviews) => {
     if (!reviews || !Array.isArray(reviews) || reviews.length === 0) return 0;
@@ -15,7 +15,7 @@ export function RestaurantInfoCard({ item, style }) {
   return (
     <View style={[styles.container, style]}>
       
-      <GlobalText style={styles.name}>{item.name}</GlobalText>
+      <GlobalText style={styles.title}>{item.name}</GlobalText>
       <GlobalText style={styles.description}>{item.description}</GlobalText>
       
       <View style={styles.row}>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 5,
   },
-  name: {
+  title: {
     fontFamily: 'DMSans_Bold',
     fontSize: 20,
     marginBottom: 14,

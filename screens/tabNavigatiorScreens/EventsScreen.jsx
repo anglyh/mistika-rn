@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
-import { SectionHeader, EventCard, RecommendedEvent } from '../../components/EventComponents';
+import { View, FlatList, ActivityIndicator } from 'react-native';
+import { EventCard, RecommendedEvent } from '../../components/EventComponents';
+import { SectionHeader } from '../../components/SectionHeader';
 import { getRecommendedEvents, getAllEvents } from '../../services/getEvents';
 
 export function EventsScreen({ navigation }) {

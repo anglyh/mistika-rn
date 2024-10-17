@@ -1,11 +1,9 @@
-import { StyleSheet, View, Image, ScrollView } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import React from "react"; 
-import { RestaurantInfoCard } from "../../components/RestaurantInfoCard"; 
-import { GlobalText } from "../../components/GlobalText";
+import { ClientDetailsInfoCard } from "../../components/ClientDetailsInfoCard";
 import { Button } from "../../components/Button";
-import colors from '../../theme/colors';
 
-export function RestaurantDetailsScreen({ route }) {
+export function ClientDetailsScreen({ route }) {
   const {
     image,
   } = route.params;
@@ -16,7 +14,7 @@ export function RestaurantDetailsScreen({ route }) {
       <View style={styles.overlay} />
       <View className="flex-1"></View>
       <View style={styles.container}>
-        <RestaurantInfoCard item={route.params} />
+        <ClientDetailsInfoCard item={route.params} />
         <View style={styles.restaurantDetails}>
           <Button content="Reservar Mesa" onPress={() => { /* Aquí puedes agregar la lógica para reservar */ }} />
         </View>

@@ -10,17 +10,6 @@ import { GlobalText } from "./GlobalText";
 import colors from "../theme/colors";
 import { formatDateToPeruTime, formatHourToPeruTime, monthParser } from "../utils/dateUtils";
 
-export function SectionHeader({ title, onPress, style }) {
-  return (
-    <View style={[styles.sectionHeaderContainer, style]}>
-      <GlobalText style={styles.sectionHeaderTitle}>{title}</GlobalText>
-      <TouchableOpacity onPress={onPress}>
-        <GlobalText style={styles.sectionHeaderButton}>Ver todos</GlobalText>
-      </TouchableOpacity>
-    </View>
-  );
-}
-
 export function EventCard({ event, onPress }) {
   return (
     <TouchableOpacity style={styles.eventCardContainer} onPress={onPress} activeOpacity={0.8}>
@@ -77,20 +66,6 @@ export function RecommendedEvent({ event, onPress }) {
 }
 
 const styles = StyleSheet.create({
-  sectionHeaderContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 16,
-  },
-  sectionHeaderTitle: {
-    fontSize: 18,
-    fontFamily: "DMSans_SemiBold",
-    color: colors.secundario,
-  },
-  sectionHeaderButton: {
-    color: colors.textPlaceholder,
-  },
   eventCardContainer: {
     flexDirection: "row",
     alignItems: "center",
