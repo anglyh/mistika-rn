@@ -4,6 +4,8 @@ import { StatusBar } from 'expo-status-bar';
 import { Main } from './screens/Main';
 import { useFonts } from 'expo-font';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import 'react-native-get-random-values';
+
 
 export default function App() {
   
