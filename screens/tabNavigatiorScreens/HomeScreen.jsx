@@ -4,7 +4,8 @@ import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { GOOGLE_MAPS_API_KEY } from '@env'; // Importamos la API key desde el entorno
+
+const EXPO_PUBLIC_GOOGLE_MAPS_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 export function HomeScreen() {
   const [location, setLocation] = useState(null);
@@ -45,7 +46,7 @@ export function HomeScreen() {
 
     try {
       const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.latitude},${location.longitude}&radius=1500&type=${type}&key=${GOOGLE_MAPS_API_KEY}`
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.latitude},${location.longitude}&radius=1500&type=${type}&key=${EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}`
       );
       setPlaces(response.data.results);
     } catch (error) {
@@ -59,7 +60,7 @@ export function HomeScreen() {
 
     try {
       const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${GOOGLE_MAPS_API_KEY}`
+        `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}`
       );
 
       if (response.data.routes.length > 0) {
@@ -118,7 +119,7 @@ export function HomeScreen() {
 
           const photoReference = details.photos ? details.photos[0].photo_reference : null;
           const photoUrl = photoReference
-            ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${GOOGLE_MAPS_API_KEY}`
+            ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}`
             : null;
 
           setPlaceDetails({
@@ -129,7 +130,7 @@ export function HomeScreen() {
           setModalVisible(true);
         }}
         query={{
-          key: GOOGLE_MAPS_API_KEY,
+          key: EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
           language: 'es',
         }}
         styles={{
@@ -177,7 +178,7 @@ export function HomeScreen() {
                 name: place.name,
                 address: place.vicinity,
                 photoUrl: place.photos
-                  ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=${GOOGLE_MAPS_API_KEY}`
+                  ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=${EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}`
                   : null,
               });
               setModalVisible(true);
