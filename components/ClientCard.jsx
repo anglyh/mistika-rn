@@ -1,19 +1,28 @@
 import React from 'react';
-import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { GlobalText } from './GlobalText';
 
-export function ClientCard({ client, onPress }) {
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const CARD_WIDTH = SCREEN_WIDTH * 0.75; // Card takes up 75% of screen width
 
+export function ClientCard({ client, onPress }) {
   return (
-    <TouchableOpacity style={styles.clientCardContainer} onPress={onPress} activeOpacity={0.8}>
+    <TouchableOpacity onPress={onPress} style={styles.clientCardContainer}>
       <View style={styles.clientCard}>
-        <Image source={{ uri: client.photos[0]?.photoReference || 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png' }} style={styles.image} />
+        <Image
+          source={{ 
+            uri: client.photos?.[0]?.photoReference || 
+                 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'
+          }}
+          style={styles.image}
+          resizeMode="cover"
+        />
         <View style={styles.overlay} />
         <View style={styles.clientDetails}>
           <GlobalText style={styles.title}>{client.name}</GlobalText>
           <View style={styles.locationRow}>
-            <Ionicons name="location-sharp" size={16} color="white" />
+            <Ionicons name="location-outline" size={14} color="white" />
             <GlobalText style={styles.locationText}>{client.location.address}</GlobalText>
           </View>
         </View>
@@ -24,9 +33,9 @@ export function ClientCard({ client, onPress }) {
 
 const styles = StyleSheet.create({
   clientCardContainer: {
+    width: CARD_WIDTH,
+    height: 150, // Altura fija para la tarjeta
     borderRadius: 15,
-    width: 280,
-    height: 160,
   },
   clientCard: {
     flex: 1,

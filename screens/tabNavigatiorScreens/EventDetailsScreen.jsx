@@ -4,7 +4,6 @@ import { InfoCard } from "../../components/InfoCard";
 import { GlobalText } from "../../components/GlobalText";
 import MapView from "react-native-maps";
 import { Button } from "../../components/Button";
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export function EventDetailsScreen({ route }) {
   const {

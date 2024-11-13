@@ -13,7 +13,6 @@ import logo from "../assets/images/logo.png";
 import { GlobalText } from "../components/GlobalText";
 import { CustomTextInput } from "../components/CustomTextInput";
 import colors from "../theme/colors";
-import { authService } from "../services/authService";
 import { useAuthContext } from "../context/AuthContext";
 
 export function Register({ navigation }) {

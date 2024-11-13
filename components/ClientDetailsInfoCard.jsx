@@ -20,7 +20,7 @@ export function ClientDetailsInfoCard({ item, style }) {
       
       <View style={styles.row}>
         <Feather name="map-pin" size={16} color={colors.textPlaceholder} />
-        <GlobalText style={styles.infoText}>{item.location.address|| "Dirección no disponible"}</GlobalText>
+        <GlobalText style={styles.infoText}>{item.location.address || "Dirección no disponible"}</GlobalText>
       </View>
       
       <View style={styles.row}>
@@ -30,17 +30,25 @@ export function ClientDetailsInfoCard({ item, style }) {
         </GlobalText>
       </View>
 
-      <GlobalText style={styles.menuTitle}>Menú:</GlobalText>
-      <FlatList
-        data={item.menu || []}
-        keyExtractor={(item) => item.item}
-        renderItem={({ item }) => (
-          <View style={styles.menuItem}>
-            <GlobalText style={styles.menuText}>{item.item}</GlobalText>
-            <GlobalText style={styles.menuText}>S/. {item.price.toFixed(2)}</GlobalText>
-          </View>
-        )}
-      />
+      { item.clientType === "Restaurante"
+        ? (
+          <>
+            <GlobalText style={styles.menuTitle}>Menú:</GlobalText>
+            <FlatList
+              data={item.menu || []}
+              keyExtractor={(item) => item.item}
+              renderItem={({ item }) => (
+                <View style={styles.menuItem}>
+                  <GlobalText style={styles.menuText}>{item.item}</GlobalText>
+                  <GlobalText style={styles.menuText}>S/. {item.price.toFixed(2)}</GlobalText>
+                </View>
+              )}
+            />
+          </>
+          )
+        : <GlobalText>No es un restaurante</GlobalText>
+      }
+
     </View>
   );
 }
