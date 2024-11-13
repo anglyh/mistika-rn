@@ -3,16 +3,18 @@ import React, { useState } from 'react'
 import colors from '../theme/colors'
 import { Ionicons } from '@expo/vector-icons'
 
-export function SearchBar({ item, onFilter }) {
+export function SearchBar({ items, onFilter }) {  // Cambiado 'item' por 'items'
   const [search, setSearch] = useState('');
 
   // Manejar cambios de texto
   const handleSearchChange = (text) => {
     setSearch(text);
-    const filtered = item.filter((itemFiltered) => 
-      itemFiltered.name.toLowerCase().includes(text.toLowerCase())
+    if (!items) return;
+    
+    const filtered = items.filter((item) => 
+      item.name.toLowerCase().includes(text.toLowerCase())
     );
-    onFilter(filtered)
+    onFilter(filtered);
   }
 
   return (
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     borderRadius: 50,
-    backgroundColor: colors.primarioGris ,
+    backgroundColor: colors.primarioGris,
     alignItems: 'center',
     marginVertical: 10,
     paddingVertical: 8,

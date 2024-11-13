@@ -14,7 +14,6 @@ import { GlobalText } from "../components/GlobalText";
 import { CustomTextInput } from "../components/CustomTextInput";
 import colors from "../theme/colors";
 import { useAuthContext } from "../context/AuthContext";
-import { authService } from "../services/authService";
 
 export function Login({ navigation }) {
   const { login } = useAuthContext(); // Obtener el estado de autenticación

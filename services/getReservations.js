@@ -6,7 +6,7 @@ export async function getUserReservations(userId) {
     const response = await axios.get(`${apiUrl}/reservations/getByUserId/${userId}`);
     const reservations = response.data;
 
-    console.log('Reservations:', reservations);
+    // console.log('Reservations:', reservations);
     return reservations.map(reservation => ({
       id: reservation._id,
       date: reservation.reservationDate,
