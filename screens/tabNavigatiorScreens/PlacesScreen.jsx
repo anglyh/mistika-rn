@@ -1,49 +1,69 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import Header from '../../components/Header';
-import { getAllPlaces } from '../../services/getPlaces';
+import * as Location from 'expo-location';
+import { fetchNearbyPlaces } from '../../utils/mapUtils';
+import colors from '../../theme/colors';
+import { GlobalText } from '../../components/GlobalText';
 
 export function PlacesScreen() {
   const [places, setPlaces] = useState([]);
+  const [location, setLocation] = useState(null);
   const navigation = useNavigation();
 
   useEffect(() => {
-    const fetchPlaces = async () => {
-      const places = await getAllPlaces();
-      setPlaces(places);
+    const getLocationAndFetchPlaces = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permiso de ubicación denegado');
+        return;
+      }
+
+      let userLocation = await Location.getCurrentPositionAsync({});
+      setLocation(userLocation.coords);
+
+      await fetchNearbyPlaces(userLocation.coords, 'tourist_attraction', setPlaces, 2500);
     };
-    fetchPlaces();
+
+    getLocationAndFetchPlaces();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Header title="Lugares Turísticos" placeholder="Buscar lugares turísticos"/>
       <FlatList
         data={places}
-        keyExtractor={(item) => item._id}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => {
+            //console.log(JSON.stringify(item, null, 2));
+            return index.toString()
+          }
+        }
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.placeCard}
             activeOpacity={0.8}
             onPress={() => navigation.navigate("PlaceDetailsScreen", {
-              image: item.imageUri,
-              name: item.title,
-              history: item.history,
+              image: item.photos?.[0], // Usa la primera foto si está disponible
+              name: item.name,
+              address: item.vicinity,
+              rating: item.rating,
+              location: item.geometry.location,
             })}
           >
-            <Image source={{ uri: item.imageUri }} style={styles.placeImage} />
-            <Text style={styles.placeName}>{item.title}</Text>
+            <Image 
+              source={
+                item.photos && item.photos[0]
+                  ? { uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${item.photos[0].photo_reference}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}` }
+                  : { uri: 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png' }
+              } 
+              style={styles.placeImage} 
+            />
             <View style={styles.interactions}>
+            <GlobalText style={styles.placeName}>{item.name}</GlobalText>
               <View style={styles.interactionItem}>
-                <Ionicons name="heart-outline" size={20} color="black" />
-                <Text>{item.likes}</Text>
-              </View>
-
-              <View style={styles.interactionItem}>
-                <Ionicons name="chatbox-ellipses-outline" size={20} color="black" />
-                <Text>{item.comments}</Text>
+                <Ionicons name="star" size={20} color="gold" />
+                <GlobalText>{item.rating}</GlobalText>
               </View>
             </View>
           </TouchableOpacity>
@@ -72,7 +92,7 @@ const styles = StyleSheet.create({
   placeName: {
     fontSize: 18,
     fontFamily: 'DMSans_SemiBold',
-    marginTop: 10,
+    color: colors.secundario,
   },
   interactions: {
     flexDirection: 'row',
@@ -82,5 +102,6 @@ const styles = StyleSheet.create({
   interactionItem: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 5,
   },
 });

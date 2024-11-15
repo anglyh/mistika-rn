@@ -18,11 +18,14 @@ export const getDirections = async (origin, destination, setRouteCoords) => {
   }
 };
 
-export const fetchNearbyPlaces = async (location, type, setPlaces) => {
+export const fetchNearbyPlaces = async (location, type, setPlaces, radius = 2500) => {
+  if (!location) return;
+
   try {
     const response = await axios.get(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.latitude},${location.longitude}&radius=1500&type=${type}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.latitude},${location.longitude}&radius=${radius}&type=${type}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}`
     );
+    console.log(response.data.results[0]);
     setPlaces(response.data.results);
   } catch (error) {
     console.error('Error fetching nearby places:', error);

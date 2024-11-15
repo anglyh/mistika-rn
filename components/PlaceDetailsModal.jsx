@@ -6,48 +6,39 @@ import { GlobalText } from './GlobalText';
 import { Button } from './Button';
 
 export function PlaceDetailsModal({ placeDetails, modalVisible, setModalVisible, getDirections, destination }) {
-  if (!modalVisible) return null;
-
-  // Función para renderizar estrellas basadas en el rating
-  const renderStars = (rating) => {
-    const fullStars = Math.floor(rating); // Número de estrellas completas
-    const hasHalfStar = rating % 1 >= 0.5; // Si tiene media estrella
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); // Número de estrellas vacías
-
-    return (
-      <>
-        {[...Array(fullStars)].map((_, i) => (
-          <Ionicons key={`full-${i}`} name="star" size={16} color="gold" />
-        ))}
-        {hasHalfStar && <Ionicons name="star-half" size={16} color="gold" />}
-        {[...Array(emptyStars)].map((_, i) => (
-          <Ionicons key={`empty-${i}`} name="star-outline" size={16} color="gold" />
-        ))}
-      </>
-    );
-  };
+  if (!modalVisible || !placeDetails) return null; // Verifica si modalVisible y placeDetails existen
 
   return (
     <View style={styles.modalBackground}>
       <View style={styles.modalView}>
         <GlobalText style={styles.modalTitle}>{placeDetails?.name}</GlobalText>
-        <View style={styles.ratingContainer}>
-          <GlobalText style={styles.ratingText}>{placeDetails?.rating || '4.5'}</GlobalText>
-          {renderStars(placeDetails?.rating || 4.5)}
-        </View>
-        <GlobalText style={styles.addressText}>{placeDetails?.address}</GlobalText>
+        
+        {placeDetails.rating && (
+          <View style={styles.ratingContainer}>
+            <GlobalText style={styles.ratingText}>{placeDetails.rating}</GlobalText>
+            {[...Array(Math.floor(placeDetails.rating))].map((_, index) => (
+              <Ionicons key={index} name="star" size={16} color="gold" />
+            ))}
+            {placeDetails.rating % 1 !== 0 && <Ionicons name="star-half" size={16} color="gold" />}
+          </View>
+        )}
 
-        {/* FlatList para mostrar imágenes */}
-        <FlatList
-          data={placeDetails?.photos}
-          renderItem={({ item }) => (
-            <Image source={{ uri: item }} style={styles.thumbnailImage} resizeMode="cover" />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.imageScroll}
-        />
+        {placeDetails.address && (
+          <GlobalText style={styles.addressText}>{placeDetails.address}</GlobalText>
+        )}
+
+        {placeDetails.photos && (
+          <FlatList
+            data={placeDetails.photos}
+            renderItem={({ item }) => (
+              <Image source={{ uri: item }} style={styles.thumbnailImage} resizeMode="cover" />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.imageScroll}
+          />
+        )}
 
         <View style={styles.buttonContainer}>
           <Button

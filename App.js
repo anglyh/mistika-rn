@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Main } from './screens/Main';
 import { useFonts } from 'expo-font';
@@ -17,7 +17,7 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return null; // No mostrar nada hasta que las fuentes estén cargadas
+    return null; 
   }
 
   return (

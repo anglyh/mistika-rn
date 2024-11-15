@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, Alert, Modal, Text, Button, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Alert, TouchableOpacity } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -36,24 +36,31 @@ export function HomeScreen() {
 
   const handlePlaceSelected = async (coords, details) => {
     setDestination(coords);
-
-    // Llama a la función getDirections desde el archivo de utilidades y pasa los parámetros necesarios
+  
     if (location) {
-      await getDirections(`${location.latitude},${location.longitude}`, `${coords.latitude},${coords.longitude}`, setRouteCoords);
+      await getDirections(
+        `${location.latitude},${location.longitude}`,
+        `${coords.latitude},${coords.longitude}`,
+        setRouteCoords
+      );
     }
-
-    const photoReference = details.photos ? details.photos[0].photo_reference : null;
-    const photoUrl = photoReference
-      ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}`
-      : null;
-
+  
+    const photos = details.photos
+      ? details.photos.map(
+          (photo) =>
+            `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}`
+        )
+      : [];
+  
     setPlaceDetails({
       name: details.name,
       address: details.formatted_address,
-      photoUrl,
+      rating: details.rating,
+      photos, // Pasa la lista de URLs de fotos
     });
     setModalVisible(true);
   };
+  
 
   const togglePlaces = async (type) => {
     if (placeType === type && showPlaces) {
@@ -124,7 +131,7 @@ export function HomeScreen() {
                 rating: place.rating,
                 photos: place.photos
                 ? place.photos.map(photo => `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}`)
-                : null,
+                : [],
               });
               setModalVisible(true);
             }}
